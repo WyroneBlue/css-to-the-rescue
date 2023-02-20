@@ -1,0 +1,451 @@
+*, *::before, *::after{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+:root{
+
+    --play-rhythm: 0.6s;
+    --play-state: paused;
+
+    --volume-level: 0;
+    --volume-level-max: 20;
+
+    --metalic-grey: #2b2b2b;
+    --metalic-grey-light: #3b3b3b;
+
+    --box-color: var(--metalic-grey);
+    --speaker-color: var(--metalic-grey-light);
+}
+
+/* [data-volume-value="1"] + body { --volume-level:1; }
+[data-volume-value="2"] + body { --volume-level:2; }
+[data-volume-value="3"] + body { --volume-level:3; }
+[data-volume-value="4"] + body { --volume-level:4; }
+[data-volume-value="5"] + body { --volume-level:5; }
+[data-volume-value="6"] + body { --volume-level:6; }
+[data-volume-value="7"] + body { --volume-level:7; }
+[data-volume-value="8"] + body { --volume-level:8; }
+[data-volume-value="9"] + body { --volume-level:9; }
+[data-volume-value="10"] + body { --volume-level:10; }
+[data-volume-value="11"] + body { --volume-level:11; }
+[data-volume-value="12"] + body { --volume-level:12; }
+[data-volume-value="13"] + body { --volume-level:13; }
+[data-volume-value="14"] + body { --volume-level:14; }
+[data-volume-value="15"] + body { --volume-level:15; }
+[data-volume-value="16"] + body { --volume-level:16; }
+[data-volume-value="17"] + body { --volume-level:17; }
+[data-volume-value="18"] + body { --volume-level:18; }
+[data-volume-value="19"] + body { --volume-level:19; }
+[data-volume-value="20"] + body { --volume-level:20; } */
+
+
+ul{
+    list-style: none;
+}
+
+label{
+    cursor: pointer;
+}
+
+main{
+    display: grid;
+    place-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+main > section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    padding: 10px;
+}
+
+
+/* Handle */
+main > section > section{
+    display: block;
+    width: 400px;
+    height: 25px;
+    background: black;
+    border-radius: 10px;
+}
+
+main > section > section::before,
+main > section > section::after{
+    content: "";
+    position: absolute;
+    width: 25px;
+    height: 100px;
+    background: black;
+    border-radius: inherit;
+}
+
+main > section > section::before{
+    left: 0;
+}
+
+main > section > section::after{
+    right: 0;
+}
+
+/* Box */
+main > section > div{
+    display: grid;
+    grid-template-columns: 4fr 3fr 4fr;
+    height: 300px;
+    width: 600px;
+    background: var(--box-color);
+    outline-width: 5px;
+    outline-style: solid;
+    outline-color: rgba(0, 0, 0, 0.5);
+    outline-offset: -10px;
+}
+
+main:has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
+> section > div{
+    animation: lightshow 5s infinite;
+}
+
+main:has([aria-label="power-button"] input:checked) > section > div{
+    outline-color: green;
+}
+
+@keyframes lightshow {
+    30% {
+        outline-color: blue;
+    }
+    60% {
+        outline-color: yellow;
+    }
+    100% {
+        outline-color: green;
+    }
+}
+
+/* Box: speakers */
+main > section > div > section{
+    place-self: center;
+    width: 80%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 2px solid black;
+    background-color: var(--metalic-grey-light);
+
+    transform-style: preserve-3d;
+    perspective: 250px;
+}
+
+main:has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
+> section > div > section{
+    animation: speaker-bump var(--play-rhythm) infinite;
+}
+
+@keyframes speaker-bump {
+    0% {
+        transform: scale(1);
+    }
+    20% {
+        box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+        transform: scale(calc(1 + var(--volume-level) / 400));
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+main > section > div > section::before{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 15%;
+    height: 15%;
+    border-radius: inherit;
+    transform: translate(-50%, -50%);
+    background: black;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+}
+
+main > section > div > section.bump::before{
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+}
+
+main > section > div > section::after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    width: 20px;
+    height: 0;
+    border-radius: 20px;
+    background-color: green;
+    transform-origin: bottom;
+}
+
+body:has(label[aria-label="mystery-mode"] input:checked) main > section > div > section::after{
+    animation: laser 3s infinite;
+}
+
+@keyframes laser {
+    0% {
+        opacity: 0;
+    }
+    20% {
+        height: 500px;
+        opacity: 1;
+        transform: translate(-50%, -100%) rotateY('angle');
+    }
+    80% {
+        opacity: 1;
+        height: 500px;
+    }
+    100% {
+        transform: translate(-50%, -100%);
+        height: 0;
+        opacity: 0;
+    }
+}
+
+/* Speaker mid section */
+main > section > div > div{
+    display: grid;
+    grid-template-rows: 4fr 1fr 3fr 2fr;
+    align-content: center;
+    gap: 10px;
+    padding: 20px 0;
+    overflow: hidden;
+}
+
+main > section > div > div > section[aria-label="mask"]{
+    position: absolute;
+    inset-inline: -2px;
+    bottom: 0;
+    height: 50%;
+    background-color: var(--metalic-grey-light);
+    z-index: 1;
+    transform: translateY(100%);
+    transition: all 0.5s;
+}
+
+main > section > div > div > section[aria-label="mask"] div {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+main > section > div > div > section[aria-label="mask"] div span{
+    position: absolute;
+    display: flex;
+    bottom: 0;
+    left: 50%;
+    width: 50%;
+    height: 60px;
+    background-color: pink;
+    border-radius: 0 0 50% 50%;
+    transform: translateX(-50%);
+}
+
+main > section > div > div > section[aria-label="mask"] div:before{
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 50px;
+    height: 40%;
+    border: solid 5px #000;
+    border-color: #000 transparent transparent transparent;
+    border-radius: 100%/100px 100px 0 0;
+    transform: rotate(180deg);
+}
+
+main > section > div > div > section[aria-label="mask"] div span:after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 3px;
+    height: 60%;
+    background-color: rgb(243, 162, 176);
+    border-radius: 0 0 50% 50%;
+    transform: translateX(-50%);
+}
+
+
+body:has(label[aria-label="mystery-mode"] input:checked) main > section > div > div > section[aria-label="mask"]{
+    transform: translateY(0);
+}
+
+/* body:has(label[aria-label="mystery-mode"] input:checked){
+    background-color: red;
+} */
+
+
+/*  Speaker mid section: equalizer */
+main > section > div > div > section[aria-label="equalizer"]{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    background-color: white;
+}
+
+main > section > div > div > section[aria-label="equalizer"] span {
+    display: block;
+    align-self: end;
+    width: 20px;
+    height: 10%;
+    background: black;
+}
+
+main > section > div > div > section[aria-label="equalizer"].play span {
+    animation: equalize var(--play-rhythm) infinite;
+}
+
+@keyframes equalize {
+    0% {
+        height: 0%;
+    }
+    60% {
+        height: calc(100% / 100 * var(--volume-level) - var(--volume-level-max));
+    }
+    100% {
+        height: 0%;
+    }
+}
+
+main > section > div > div > section[aria-label="equalizer"].play span:nth-child(1){
+    height: calc(100% / 100 * var(--volume-level) - var(--volume-level-max));
+}
+
+main > section > div > div > section[aria-label="equalizer"].play span:nth-child(2){
+    height: calc(100% / 100 * var(--volume-level) - var(--volume-level-max));
+}
+
+main > section > div > div > section[aria-label="equalizer"].play span:nth-child(3){
+    height: calc(100% / 100 * var(--volume-level));
+}
+
+main > section > div > div > section[aria-label="equalizer"].play span:nth-child(4){
+    height: calc(100% / 100 * var(--volume-level) - var(--volume-level-max));
+}
+
+main > section > div > div > section[aria-label="equalizer"].play span:nth-child(5){
+    height: calc(100% / 100 * var(--volume-level) - var(--volume-level-max));
+}
+
+/*  Speaker mid section: play controls */
+main > section > div > div > section[aria-label="play-controls"]{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+}
+
+main > section > div > div > section[aria-label="play-controls"] label{
+    display: grid;
+    place-content: center;
+    background-color: aqua;
+}
+
+main > section > div > div > section[aria-label="play-controls"] label:has(input:checked){
+    background-color: pink;
+}
+
+main > section > div > div > section[aria-label="play-controls"] label input{
+    display: none;
+}
+
+main > section > div > div label[aria-label="power-button"]{
+    align-self: center;
+    justify-self: center;
+    display: grid;
+    place-content: center;
+    background-color: red;
+    height: 50px;
+    width: 50px;
+}
+
+main > section > div > div label[aria-label="power-button"]:has(input:checked){
+    background-color: green;
+}
+
+
+main > section > div > div label[aria-label="power-button"] input{
+    display: none;
+}
+
+input[type="range"] {
+    -webkit-appearance:none !important;
+    background-color: black;
+    height: 5px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    height: 23px;
+    width: 12px;
+    background: black;
+    border-left: 3px solid grey;
+    border-right: 3px solid grey;
+    cursor: grab;
+}
+
+input[type="range"]:active::-webkit-slider-thumb {
+    cursor: grabbing;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    background: black;
+    border-color: grey;
+}
+
+footer {
+    position: fixed;
+    bottom: 10px;
+    inset-inline: 0;
+}
+
+footer nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin-inline: auto;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: var(--metalic-grey-light);
+}
+
+footer nav::before{
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    width: 50%;
+    left: 0;
+    background-color: green;
+    transition: transform 0.5s;
+}
+
+footer label{
+    flex: 1 1;
+    display: grid;
+    place-content: center;
+    height: 50px;
+    color: white;
+}
+
+footer nav:has(label:first-of-type input:checked)::before{
+    transform: translateX(0);
+}
+
+footer nav:has(label:last-of-type input:checked)::before{
+    transform: translateX(100%);
+}
+
+footer label input{
+    display: none;
+}

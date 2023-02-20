@@ -5,17 +5,72 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSS To The Rescue: Control Panel</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-    <header>
+    <header></header>
 
-    </header>
     <main>
-        <input type="range">
+        <section>
+            <section></section>
+            <div>
+                <!-- mask -->
+                <section></section>
+                <div>
+                    <section aria-label="mask">
+                        <div>
+                            <span> </span>
+                        </div>
+                    </section>
+                    <section aria-label="equalizer">
+                        <span style="--volume-level-max: 40%"></span>
+                        <span style="--volume-level-max: 30%"></span>
+                        <span style="--volume-level-max: 0%"></span>
+                        <span style="--volume-level-max: 25%"></span>
+                        <span style="--volume-level-max: 15%"></span>
+                    </section>
+                    <section aria-label="play-controls">
+                        <label>
+                            Prev
+                            <input type="radio" name="play-state">
+                        </label>
+                        <label>
+                            Play
+                            <input type="radio" name="play-state">
+                        </label>
+                        <label>
+                            Pause
+                            <input type="radio" name="play-state" checked>
+                        </label>
+                        <label>
+                            Next
+                            <input type="radio" name="play-state">
+                        </label>
+                    </section>
+                    <label aria-label="power-button">
+                        On/off
+                        <input type="checkbox" name="power">
+                    </label>
+                    <input type="range" name="volume" id="volume" step="5" value="20">
+                </div>
+                <section></section>
+            </div>
+        </section>
     </main>
-    <footer>
 
+    <footer>
+        <nav>
+            <label aria-label="boombox-mode">
+                <input type="radio" name="animation-mode">
+                Boombox
+            </label>
+            <label aria-label="mystery-mode">
+                <input type="radio" name="animation-mode">
+                ???
+            </label>
+        </nav>
     </footer>
+
+    <script src="./js/main.js"></script>
 </body>
 </html>

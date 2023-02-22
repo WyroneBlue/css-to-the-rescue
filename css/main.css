@@ -319,7 +319,7 @@ main > section > div > section::after{
 
 /* Box: speaker laser when mystery mode is on and play is pressed */
 body:has(label[aria-label="mystery-mode"] input:checked)
-:has([aria-label="play-controls"] label:nth-of-type(2) input:checked) main > section > div > section::after{
+main:has([aria-label="play-controls"] label:nth-of-type(2) input:checked) > section > div > section::after{
     animation: laser 4s ease-out infinite;
 }
 
@@ -388,7 +388,7 @@ main > section > div > div > section[aria-label="mask"] div span{
     transform: translateX(-50%);
 }
 
-main > section > div > div > section[aria-label="mask"] div:before{
+main > section > div > div > section[aria-label="mask"] div::before{
     content: "";
     position: absolute;
     inset-inline: 0;
@@ -400,7 +400,7 @@ main > section > div > div > section[aria-label="mask"] div:before{
     transform: rotate(180deg);
 }
 
-main > section > div > div > section[aria-label="mask"] div span:after{
+main > section > div > div > section[aria-label="mask"] div span::after{
     content: "";
     position: absolute;
     top: 0;

@@ -19,6 +19,32 @@
     --box-color: var(--metalic-grey);
     --speaker-color: var(--metalic-grey-light);
 
+    --bg-color-1: black;
+    --bg-color-2: blue;
+    --bg-color-3: yellow;
+    --bg-color-4: green;
+    --bg-color-5: red;
+    --bg-color-6: purple;
+    --bg-color-7: orange;
+    --bg-color-8: pink;
+    --bg-color-9: brown;
+    --bg-color-10: grey;
+}
+
+@media (prefers-reduced-motion) {
+    :root{
+        --bg-color-1: transparent;
+        --bg-color-2: transparent;
+        --bg-color-3: transparent;
+        --bg-color-4: transparent;
+        --bg-color-5: transparent;
+        --bg-color-6: transparent;
+        --bg-color-7: transparent;
+        --bg-color-8: transparent;
+        --bg-color-9: transparent;
+        --bg-color-10: transparent;
+    }
+}
 
 ul{
     list-style: none;

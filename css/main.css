@@ -5,12 +5,13 @@
     position: relative;
 }
 
+/* Custom properties */
 :root{
 
     --play-rhythm: 0.6s;
     --play-state: paused;
 
-    --volume-level: 0;
+    --volume-level: 50;
     --volume-level-max: 20;
 
     --metalic-grey: #2b2b2b;
@@ -31,6 +32,7 @@
     --bg-color-10: grey;
 }
 
+/* No background colors for reduce motion */
 @media (prefers-reduced-motion) {
     :root{
         --bg-color-1: transparent;
@@ -54,6 +56,19 @@ label{
     cursor: pointer;
 }
 
+body{
+    overflow: hidden;
+    background-color: black;
+    filter: brightness(.8);
+    box-shadow: none;
+}
+
+/* Body when power button is on */
+body:has([aria-label="power-button"] input:checked){
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: inset 0 0 10px gray, inset 0 0 20px black, inset 0 0 30px gray;
+}
+
 main{
     display: grid;
     place-content: center;
@@ -61,14 +76,87 @@ main{
     width: 100vw;
 }
 
+/* Main when the boombox mode is on and the power button is on */
+body:has(label[aria-label="boombox-mode"] input:checked)
+main:has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked){
+    animation: bg-party calc(var(--play-rhythm) * 10) infinite;
+}
+
+/* Part BG  */
+@keyframes bg-party {
+    0%, 9% {
+        background-color: var(--bg-color-1);
+    }
+    10%, 19% {
+        background-color: var(--bg-color-2);
+    }
+    20%, 29% {
+        background-color: var(--bg-color-2);
+    }
+    30%, 39% {
+        background-color: var(--bg-color-3);
+    }
+    40%, 49% {
+        background-color: var(--bg-color-4);
+    }
+    50%, 59% {
+        background-color: var(--bg-color-5);
+    }
+    60%, 69% {
+        background-color: var(--bg-color-6);
+    }
+    70%, 79% {
+        background-color: var(--bg-color-7);
+    }
+    80%, 89% {
+        background-color: var(--bg-color-8);
+    }
+    90%, 100% {
+        background-color: var(--bg-color-9);
+    }
+}
+
+/* Boombox container */
 main > section{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 50px;
     padding: 10px;
+    filter: drop-shadow(0 0 5px white);
 }
 
+/* Boombox container when the boombox mode is on and the power button is on and play is pressed */
+body:has(label[aria-label="boombox-mode"] input:checked):has([aria-label="power-button"] input:checked)
+main:has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
+> section{
+    filter: none;
+    animation: boombox-bounce calc(var(--play-rhythm) * 2) infinite;
+}
+
+@keyframes boombox-bounce {
+    0% {
+        transform: rotate(0);
+        transform-origin: bottom left;
+    }
+    25% {
+        transform: rotate(calc(var(--volume-level) / 100 * 1deg));
+        transform-origin: bottom left;
+    }
+    50% {
+        transform: rotate(0);
+        transform-origin: bottom;
+    }
+    75% {
+        transform: rotate(calc(var(--volume-level) / 100 * -1deg));
+        transform-origin: bottom right;
+    }
+    100% {
+        transform: rotate(0);
+        transform-origin: bottom right;
+    }
+}
+/* End boombox container */
 
 /* Handle */
 main > section > section{
@@ -96,6 +184,7 @@ main > section > section::before{
 main > section > section::after{
     right: 0;
 }
+/* End handle */
 
 /* Box */
 main > section > div{
@@ -110,24 +199,27 @@ main > section > div{
     outline-offset: -10px;
 }
 
+/* Box when power button is pressed */
+main:has([aria-label="power-button"] input:checked) > section > div{
+    outline-color: green;
+}
+
+/* Box when power button is pressed and play button is pressed */
 main:has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
 > section > div{
     animation: lightshow 5s infinite;
 }
 
-main:has([aria-label="power-button"] input:checked) > section > div{
-    outline-color: green;
-}
-
+/* Lightshow animation */
 @keyframes lightshow {
     30% {
-        outline-color: blue;
+        outline-color: var(--bg-color-3);
     }
     60% {
-        outline-color: yellow;
+        outline-color: var(--bg-color-3);
     }
     100% {
-        outline-color: green;
+        outline-color: var(--bg-color-7);
     }
 }
 
@@ -141,14 +233,42 @@ main > section > div > section{
     background-color: var(--metalic-grey-light);
 
     transform-style: preserve-3d;
-    perspective: 250px;
+    perspective: 600px;
+    z-index: 9;
 }
 
+/* Box: speakers when mystery mode is on and play is pressed */
+body:has(label[aria-label="mystery-mode"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked) main > section > div > section{
+    animation: move-eyes 5s infinite;
+}
+
+/* Moving eyes animation for mystery mode */
+@keyframes move-eyes {
+    0%{
+        transform: rotate3d(5, 2, 0, 0deg);
+    }
+    20%{
+        transform: rotate3d(2, 1, 1, 23deg);
+    }
+    50% {
+        transform: rotate3d(3, 3, 0, 10deg);
+    }
+    70%{
+        transform: rotate3d(8, 2, 1, 35deg);
+    }
+    100% {
+        transform: rotate3d(5, 2, 0, -6deg);
+    }
+}
+
+/* Box: speakers when boombox mode is on and power button is on and play is pressed */
+body:has(label[aria-label="boombox-mode"] input:checked)
 main:has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
 > section > div > section{
     animation: speaker-bump var(--play-rhythm) infinite;
 }
 
+/* Speaker bump animation */
 @keyframes speaker-bump {
     0% {
         transform: scale(1);
@@ -162,6 +282,7 @@ main:has([aria-label="power-button"] input:checked):has([aria-label="play-contro
     }
 }
 
+/* Box: speaker pupils */
 main > section > div > section::before{
     content: "";
     position: absolute;
@@ -175,44 +296,46 @@ main > section > div > section::before{
     box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
 }
 
-main > section > div > section.bump::before{
+/* Box: speaker pupils when boombox mode is on and power button is on and play is pressed */
+body:has(label[aria-label="boombox-mode"] input:checked)
+main:has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
+> section > div > section::before{
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
 }
 
+/* Box: speaker laser */
 main > section > div > section::after{
     content: "";
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -100%);
     width: 20px;
-    height: 0;
+    height: 20px;
     border-radius: 20px;
     background-color: green;
     transform-origin: bottom;
+    transform: translate3d(-50%, -50%, 0) rotateY(90deg);
 }
 
-body:has(label[aria-label="mystery-mode"] input:checked) main > section > div > section::after{
-    animation: laser 3s infinite;
+/* Box: speaker laser when mystery mode is on and play is pressed */
+body:has(label[aria-label="mystery-mode"] input:checked)
+:has([aria-label="play-controls"] label:nth-of-type(2) input:checked) main > section > div > section::after{
+    animation: laser 4s ease-out infinite;
 }
 
+/* Laser animation */
 @keyframes laser {
     0% {
         opacity: 0;
     }
-    20% {
-        height: 500px;
+    20%, 90% {
         opacity: 1;
-        transform: translate(-50%, -100%) rotateY('angle');
-    }
-    80% {
-        opacity: 1;
-        height: 500px;
+        width: 100vw;
+        transform: translate3d(-50%, -50%, 300px) rotateY(90deg);
     }
     100% {
-        transform: translate(-50%, -100%);
-        height: 0;
         opacity: 0;
+        width: 0;
     }
 }
 
@@ -226,17 +349,26 @@ main > section > div > div{
     overflow: hidden;
 }
 
+/* Speaker mid section: Mask */
 main > section > div > div > section[aria-label="mask"]{
     position: absolute;
     inset-inline: -2px;
     bottom: 0;
-    height: 50%;
+    height: calc(50% - 10px);
     background-color: var(--metalic-grey-light);
     z-index: 1;
     transform: translateY(100%);
     transition: all 0.5s;
 }
 
+/* Speaker mid section: Mask when mystery mode is on */
+body:has(label[aria-label="mystery-mode"] input:checked) main > section > div > div > section[aria-label="mask"]{
+    bottom: 10px;
+    transform: translateY(0);
+}
+
+
+/* Speaker mid section: Mask tongue */
 main > section > div > div > section[aria-label="mask"] div {
     position: relative;
     display: flex;
@@ -247,7 +379,7 @@ main > section > div > div > section[aria-label="mask"] div {
 main > section > div > div > section[aria-label="mask"] div span{
     position: absolute;
     display: flex;
-    bottom: 0;
+    bottom: 10px;
     left: 50%;
     width: 50%;
     height: 60px;
@@ -260,7 +392,7 @@ main > section > div > div > section[aria-label="mask"] div:before{
     content: "";
     position: absolute;
     inset-inline: 0;
-    bottom: 50px;
+    bottom: 60px;
     height: 40%;
     border: solid 5px #000;
     border-color: #000 transparent transparent transparent;
@@ -279,18 +411,9 @@ main > section > div > div > section[aria-label="mask"] div span:after{
     border-radius: 0 0 50% 50%;
     transform: translateX(-50%);
 }
+/* End speaker mid section: Mask */
 
-
-body:has(label[aria-label="mystery-mode"] input:checked) main > section > div > div > section[aria-label="mask"]{
-    transform: translateY(0);
-}
-
-/* body:has(label[aria-label="mystery-mode"] input:checked){
-    background-color: red;
-} */
-
-
-/*  Speaker mid section: equalizer */
+/*  Speaker mid section: equalizer container */
 main > section > div > div > section[aria-label="equalizer"]{
     display: flex;
     justify-content: center;
@@ -298,6 +421,7 @@ main > section > div > div > section[aria-label="equalizer"]{
     background-color: white;
 }
 
+/*  Speaker mid section: equalizer bar */
 main > section > div > div > section[aria-label="equalizer"] span {
     display: block;
     align-self: end;
@@ -306,15 +430,30 @@ main > section > div > div > section[aria-label="equalizer"] span {
     background: black;
 }
 
-main > section > div > div > section[aria-label="equalizer"].play span {
+/*  Speaker mid section: equalizer bar when boombox mode is on and power button is pressed and play button is pressed*/
+body:has(label[aria-label="boombox-mode"] input:checked)
+main:has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
+> section > div > div > section[aria-label="equalizer"] span {
     animation: equalize var(--play-rhythm) infinite;
 }
 
+/*  Speaker mid section: equalizer bar when boombox mode is on and power button is pressed and play button is pressed and prev button is pressed*/
+body:has(label[aria-label="boombox-mode"] input:checked)
+main:has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:first-of-type input:checked){
+    --play-rhythm: .4s;
+}
+
+/*  Speaker mid section: equalizer bar when boombox mode is on and power button is pressed and play button is pressed and next button is pressed*/
+main:has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:last-of-type input:checked){
+    --play-rhythm: .6s;
+}
+
+/*  Speaker mid section: equalizer bar animation */
 @keyframes equalize {
     0% {
         height: 0%;
     }
-    60% {
+    10% {
         height: calc(100% / 100 * var(--volume-level) - var(--volume-level-max));
     }
     100% {
@@ -322,23 +461,38 @@ main > section > div > div > section[aria-label="equalizer"].play span {
     }
 }
 
-main > section > div > div > section[aria-label="equalizer"].play span:nth-child(1){
+/*  Speaker mid section: equalizer bar 1 height while animation is active*/
+body:has(label[aria-label="boombox-mode"] input:checked)
+main:has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
+> section > div > div > section[aria-label="equalizer"] span:nth-child(1){
     height: calc(100% / 100 * var(--volume-level) - var(--volume-level-max));
 }
 
-main > section > div > div > section[aria-label="equalizer"].play span:nth-child(2){
+/*  Speaker mid section: equalizer bar 2 height while animation is active*/
+body:has(label[aria-label="boombox-mode"] input:checked)
+main:has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
+> section > div > div > section[aria-label="equalizer"] span:nth-child(2){
     height: calc(100% / 100 * var(--volume-level) - var(--volume-level-max));
 }
 
-main > section > div > div > section[aria-label="equalizer"].play span:nth-child(3){
+/*  Speaker mid section: equalizer bar 3 height while animation is active*/
+body:has(label[aria-label="boombox-mode"] input:checked)
+main:has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
+> section > div > div > section[aria-label="equalizer"] span:nth-child(3){
     height: calc(100% / 100 * var(--volume-level));
 }
 
-main > section > div > div > section[aria-label="equalizer"].play span:nth-child(4){
+/*  Speaker mid section: equalizer bar 4 height while animation is active*/
+body:has(label[aria-label="boombox-mode"] input:checked)
+main:has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
+> section > div > div > section[aria-label="equalizer"] span:nth-child(4){
     height: calc(100% / 100 * var(--volume-level) - var(--volume-level-max));
 }
 
-main > section > div > div > section[aria-label="equalizer"].play span:nth-child(5){
+/*  Speaker mid section: equalizer bar 5 height while animation is active*/
+body:has(label[aria-label="boombox-mode"] input:checked)
+main:has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
+> section > div > div > section[aria-label="equalizer"] span:nth-child(5){
     height: calc(100% / 100 * var(--volume-level) - var(--volume-level-max));
 }
 
@@ -349,45 +503,98 @@ main > section > div > div > section[aria-label="play-controls"]{
     gap: 2px;
 }
 
+/*  Speaker mid section: play controls button */
 main > section > div > div > section[aria-label="play-controls"] label{
     display: grid;
     place-content: center;
-    background-color: aqua;
+    color: black;
+    font-size: .8rem;
+    background-image: linear-gradient(#000,#fff);
+    box-shadow: 0px 1px 4px -2px #333;
+    text-shadow: 0px -1px #333;
+    pointer-events: none;
 }
 
-main > section > div > div > section[aria-label="play-controls"] label:has(input:checked){
-    background-color: pink;
+/*  Speaker mid section: play controls button glass shine */
+main > section > div > div > section[aria-label="play-controls"] label::after{
+	content: '';
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: calc(100% - 4px);
+	height: 50%;
+	background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+}
+
+/*  Speaker mid section: play controls button when power button is pressed */
+main:has([aria-label="power-button"] input:checked)
+> section > div > div > section[aria-label="play-controls"] label{
+    background-image: linear-gradient(#000,#fff);
+    box-shadow: 0px 1px 4px -2px #333;
+    text-shadow: 0px -1px #333;
+    pointer-events: all;
+}
+
+/*  Speaker mid section: play controls button glass shine when power button is pressed */
+main:has([aria-label="power-button"] input:checked)
+> section > div > div > section[aria-label="play-controls"] label::after{
+    background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+}
+
+
+/*  Speaker mid section: play controls button glass shine when power button is pressed and button self is pressed*/
+main:has([aria-label="power-button"] input:checked)
+> section > div > div > section[aria-label="play-controls"] label:has(input:checked){
+    color: white;
+    background-image: linear-gradient(#073,#0fa);
 }
 
 main > section > div > div > section[aria-label="play-controls"] label input{
     display: none;
 }
 
+/*  Speaker mid section: Power button */
 main > section > div > div label[aria-label="power-button"]{
     align-self: center;
     justify-self: center;
     display: grid;
     place-content: center;
-    background-color: red;
     height: 50px;
     width: 50px;
+    background-image: linear-gradient(#700,#f00);
+    box-shadow: 0px 1px 4px -2px #333;
+    text-shadow: 0px -1px #333;
 }
 
+/*  Speaker mid section: Power button glass shine */
+main > section > div > div label[aria-label="power-button"]::after{
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: calc(100% - 4px);
+    height: 50%;
+    background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+}
+
+/*  Speaker mid section: Power button glass shine when power button pressed */
 main > section > div > div label[aria-label="power-button"]:has(input:checked){
-    background-color: green;
+    color: white;
+    background-image: linear-gradient(green, lightgreen);
 }
-
 
 main > section > div > div label[aria-label="power-button"] input{
     display: none;
 }
 
+/*  Speaker mid section: Volume slider */
 input[type="range"] {
     -webkit-appearance:none !important;
     background-color: black;
     height: 5px;
 }
 
+/*  Speaker mid section: Volume slider thumb */
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none !important;
     height: 23px;
@@ -398,21 +605,26 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: grab;
 }
 
+/*  Speaker mid section: Volume slider thumb on grab(active) */
 input[type="range"]:active::-webkit-slider-thumb {
     cursor: grabbing;
 }
 
+/*  Speaker mid section: Volume slider thumb on hover */
 input[type="range"]::-webkit-slider-thumb:hover {
     background: black;
     border-color: grey;
 }
+/* End mid section */
 
+/* Mode selector */
 footer {
     position: fixed;
     bottom: 10px;
     inset-inline: 0;
 }
 
+/* Mode selector container */
 footer nav{
     display: flex;
     justify-content: center;
@@ -424,6 +636,7 @@ footer nav{
     background-color: var(--metalic-grey-light);
 }
 
+/* Mode selector container active bg */
 footer nav::before{
     content: "";
     position: absolute;
@@ -434,6 +647,7 @@ footer nav::before{
     transition: transform 0.5s;
 }
 
+/* Mode selector button */
 footer label{
     flex: 1 1;
     display: grid;
@@ -442,10 +656,12 @@ footer label{
     color: white;
 }
 
+/* Mode selector button active bg when boombox mode is active */
 footer nav:has(label:first-of-type input:checked)::before{
     transform: translateX(0);
 }
 
+/* Mode selector button active bg when mystery mode is active */
 footer nav:has(label:last-of-type input:checked)::before{
     transform: translateX(100%);
 }
@@ -453,3 +669,4 @@ footer nav:has(label:last-of-type input:checked)::before{
 footer label input{
     display: none;
 }
+/* End mode selector */

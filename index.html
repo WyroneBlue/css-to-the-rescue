@@ -14,14 +14,22 @@
         <section>
             <section></section>
             <div>
-                <!-- mask -->
+                <!-- Speaker Left -->
                 <section></section>
+                <!-- End speaker Left -->
+
+                <!-- Middle Section -->
                 <div>
+
+                    <!-- Mask -->
                     <section aria-label="mask">
                         <div>
                             <span> </span>
                         </div>
                     </section>
+                    <!-- End mask -->
+
+                    <!-- Equalizer -->
                     <section aria-label="equalizer">
                         <span style="--volume-level-max: 40%"></span>
                         <span style="--volume-level-max: 30%"></span>
@@ -29,6 +37,9 @@
                         <span style="--volume-level-max: 25%"></span>
                         <span style="--volume-level-max: 15%"></span>
                     </section>
+                    <!-- End equalizer -->
+
+                    <!-- Play Options -->
                     <section aria-label="play-controls">
                         <label>
                             Prev
@@ -47,29 +58,48 @@
                             <input type="radio" name="track">
                         </label>
                     </section>
+                    <!-- End play options -->
+
+                    <!-- Power button -->
                     <label aria-label="power-button">
                         On/off
                         <input type="checkbox" name="power">
                     </label>
-                    <input type="range" name="volume" id="volume" step="5" value="20">
+                    <!-- End power button -->
+
+                    <!-- Volume slide -->
+                    <input type="range" name="volume" id="volume" step="5" value="50">
+                    <!-- End volume slide -->
                 </div>
+                <!-- End middle section -->
+
+                <!-- Speaker Right -->
                 <section></section>
+                <!-- End speaker Right -->
             </div>
         </section>
     </main>
 
+    <!-- Mode selection -->
     <footer>
         <nav>
+
+            <!-- Normal mode -->
             <label aria-label="boombox-mode">
-                <input type="radio" name="animation-mode">
+                <input type="radio" name="animation-mode" checked>
                 Boombox
             </label>
+            <!-- End normal mode -->
+
+            <!-- Mystery mode -->
             <label aria-label="mystery-mode">
                 <input type="radio" name="animation-mode">
                 ???
             </label>
+            <!-- End mystery mode -->
         </nav>
     </footer>
+    <!-- End mode selection -->
 
     <script src="./js/main.js"></script>
 </body>

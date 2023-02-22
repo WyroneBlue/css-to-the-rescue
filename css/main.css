@@ -276,6 +276,7 @@ main:has([aria-label="power-button"] input:checked):has([aria-label="play-contro
     20% {
         box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
         transform: scale(calc(1 + var(--volume-level) / 400));
+        border: 4px solid black;
     }
     100% {
         transform: scale(1);

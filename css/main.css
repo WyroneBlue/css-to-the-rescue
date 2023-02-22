@@ -18,28 +18,6 @@
 
     --box-color: var(--metalic-grey);
     --speaker-color: var(--metalic-grey-light);
-}
-
-/* [data-volume-value="1"] + body { --volume-level:1; }
-[data-volume-value="2"] + body { --volume-level:2; }
-[data-volume-value="3"] + body { --volume-level:3; }
-[data-volume-value="4"] + body { --volume-level:4; }
-[data-volume-value="5"] + body { --volume-level:5; }
-[data-volume-value="6"] + body { --volume-level:6; }
-[data-volume-value="7"] + body { --volume-level:7; }
-[data-volume-value="8"] + body { --volume-level:8; }
-[data-volume-value="9"] + body { --volume-level:9; }
-[data-volume-value="10"] + body { --volume-level:10; }
-[data-volume-value="11"] + body { --volume-level:11; }
-[data-volume-value="12"] + body { --volume-level:12; }
-[data-volume-value="13"] + body { --volume-level:13; }
-[data-volume-value="14"] + body { --volume-level:14; }
-[data-volume-value="15"] + body { --volume-level:15; }
-[data-volume-value="16"] + body { --volume-level:16; }
-[data-volume-value="17"] + body { --volume-level:17; }
-[data-volume-value="18"] + body { --volume-level:18; }
-[data-volume-value="19"] + body { --volume-level:19; }
-[data-volume-value="20"] + body { --volume-level:20; } */
 
 
 ul{

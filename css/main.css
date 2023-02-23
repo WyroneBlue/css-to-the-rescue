@@ -14,11 +14,27 @@
     --volume-level: 50;
     --volume-level-max: 20;
 
+    --no-power-bg: black;
+    --no-power-shadow: inset 0 0 10px gray, inset 0 0 20px black, inset 0 0 30px gray;
+    --powered-bg: rgba(0, 0, 0, 0.8);
+
+    --box-container-shadow: drop-shadow(0 0 5px white);
+
+    --handle-color: black;
+    --handle-color-sides: var(--handle-color);
+
     --metalic-grey: #2b2b2b;
     --metalic-grey-light: #3b3b3b;
 
     --box-color: var(--metalic-grey);
+    --led-display-off: rgb(25, 25, 25);
+    --led-display-on: rgba(107, 115, 145, 0.797);
+    --led-color: rgba(0, 0, 0, 0.1);
+    --led-color-on: rgba(0, 255, 0, 0.8);
+
     --speaker-color: var(--metalic-grey-light);
+    --speaker-border: var(--handle-color);
+    --laser-color: red;
 
     --bg-color-1: black;
     --bg-color-2: blue;
@@ -30,6 +46,12 @@
     --bg-color-8: pink;
     --bg-color-9: brown;
     --bg-color-10: grey;
+}
+
+@property --led-color{
+    syntax: "<color>";
+    initial-value: rgba(0, 0, 0, 0.1);
+    inherits: false;
 }
 
 /* No background colors for reduce motion */
@@ -45,6 +67,8 @@
         --bg-color-8: transparent;
         --bg-color-9: transparent;
         --bg-color-10: transparent;
+
+        --laser-color: rgba(255, 0, 0, 0.1);
     }
 }
 
@@ -58,15 +82,15 @@ label{
 
 body{
     overflow: hidden;
-    background-color: black;
+    background-color: var(--no-power-bg);
     filter: brightness(.8);
-    box-shadow: none;
+    box-shadow: var(--no-power-shadow);
 }
 
 /* Body when power button is on */
 body:has([aria-label="power-button"] input:checked){
-    background-color: rgba(0, 0, 0, 0.8);
-    box-shadow: inset 0 0 10px gray, inset 0 0 20px black, inset 0 0 30px gray;
+    background-color: var(--powered-bg);
+    box-shadow: none;
 }
 
 main{
@@ -82,6 +106,7 @@ main:has([aria-label="power-button"] input:checked):has([aria-label="play-contro
     animation: bg-party calc(var(--play-rhythm) * 10) infinite;
 }
 
+/* animation timing steps checken */
 /* Part BG  */
 @keyframes bg-party {
     0%, 9% {
@@ -123,7 +148,7 @@ main > section{
     align-items: center;
     gap: 50px;
     padding: 10px;
-    filter: drop-shadow(0 0 5px white);
+    filter: var(--box-container-shadow);
 }
 
 /* Boombox container when the boombox mode is on and the power button is on and play is pressed */
@@ -163,7 +188,7 @@ main > section > section{
     display: block;
     width: 400px;
     height: 25px;
-    background: black;
+    background: var(--handle-color);
     border-radius: 10px;
 }
 
@@ -173,7 +198,7 @@ main > section > section::after{
     position: absolute;
     width: 25px;
     height: 100px;
-    background: black;
+    background: var(--handle-color);
     border-radius: inherit;
 }
 
@@ -195,32 +220,43 @@ main > section > div{
     background: var(--box-color);
     outline-width: 5px;
     outline-style: solid;
-    outline-color: rgba(0, 0, 0, 0.5);
+    outline-color: var(--led-color);
     outline-offset: -10px;
 }
 
 /* Box when power button is pressed */
 main:has([aria-label="power-button"] input:checked) > section > div{
-    outline-color: green;
+    --led-color: var(--led-color-on);
+    outline-color: var(--led-color-on);
 }
 
-/* Box when power button is pressed and play button is pressed */
-main:has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
-> section > div{
-    animation: lightshow 5s infinite;
+/* Box in boombox mode when power button is pressed and play button is pressed */
+body:has([aria-label="boombox-mode"] input:checked):has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
+main > section > div{
+    animation: led-lights 5s infinite alternate;
 }
 
 /* Lightshow animation */
-@keyframes lightshow {
+@keyframes led-lights {
     30% {
-        outline-color: var(--bg-color-3);
+        --led-color: var(--bg-color-3);
+        outline-color: var(--led-color);
     }
     60% {
-        outline-color: var(--bg-color-3);
+        --led-color: var(--bg-color-7);
+        outline-color: var(--led-color);
     }
     100% {
-        outline-color: var(--bg-color-7);
+        --led-color: var(--bg-color-5);
+        outline-color: var(--led-color);
     }
+}
+
+/* Box in mystery mode when power button is pressed and play button is pressed */
+body:has([aria-label="mystery-mode"] input:checked):has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
+main > section > div{
+    --led-color: var(--laser-color);
+    outline-color: var(--led-color);
 }
 
 /* Box: speakers */
@@ -229,7 +265,7 @@ main > section > div > section{
     width: 80%;
     aspect-ratio: 1/1;
     border-radius: 50%;
-    border: 2px solid black;
+    border: 2px solid var(--speaker-border);
     background-color: var(--metalic-grey-light);
 
     transform-style: preserve-3d;
@@ -239,7 +275,7 @@ main > section > div > section{
 
 /* Box: speakers when mystery mode is on and play is pressed */
 body:has(label[aria-label="mystery-mode"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked) main > section > div > section{
-    animation: move-eyes 5s infinite;
+    animation: move-eyes 3s infinite;
 }
 
 /* Moving eyes animation for mystery mode */
@@ -256,8 +292,11 @@ body:has(label[aria-label="mystery-mode"] input:checked):has([aria-label="play-c
     70%{
         transform: rotate3d(8, 2, 1, 35deg);
     }
-    100% {
+    90% {
         transform: rotate3d(5, 2, 0, -6deg);
+    }
+    100% {
+        transform: rotate3d(0, 0, 0, 0);
     }
 }
 
@@ -304,6 +343,26 @@ main:has([aria-label="power-button"] input:checked):has([aria-label="play-contro
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
 }
 
+/* Box: speaker upils when mystery mode is on and play is pressed */
+body:has(label[aria-label="mystery-mode"] input:checked)
+main:has([aria-label="play-controls"] label:nth-of-type(2) input:checked) > section > div > section::before{
+    animation: eye-transition .8s ease-out forwards;
+}
+
+/* Eye transition animation */
+@keyframes eye-transition {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    20%{
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+    100% {
+        background-color: var(--laser-color);
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
 /* Box: speaker laser */
 main > section > div > section::after{
     content: "";
@@ -313,7 +372,7 @@ main > section > div > section::after{
     width: 20px;
     height: 20px;
     border-radius: 20px;
-    background-color: green;
+    background-color: var(--laser-color);
     transform-origin: bottom;
     transform: translate3d(-50%, -50%, 0) rotateY(90deg);
 }
@@ -321,7 +380,7 @@ main > section > div > section::after{
 /* Box: speaker laser when mystery mode is on and play is pressed */
 body:has(label[aria-label="mystery-mode"] input:checked)
 main:has([aria-label="play-controls"] label:nth-of-type(2) input:checked) > section > div > section::after{
-    animation: laser 4s ease-out infinite;
+    animation: laser 4s ease-out 1s infinite;
 }
 
 /* Laser animation */
@@ -329,7 +388,7 @@ main:has([aria-label="play-controls"] label:nth-of-type(2) input:checked) > sect
     0% {
         opacity: 0;
     }
-    20%, 90% {
+    10%, 90% {
         opacity: 1;
         width: 100vw;
         transform: translate3d(-50%, -50%, 300px) rotateY(90deg);
@@ -387,6 +446,31 @@ main > section > div > div > section[aria-label="mask"] div span{
     background-color: pink;
     border-radius: 0 0 50% 50%;
     transform: translateX(-50%);
+    transform-origin: top;
+}
+
+body:has(label[aria-label="mystery-mode"] input:checked)
+main:has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
+> section > div > div > section[aria-label="mask"] div span{
+    animation: lick 1s ease-in-out infinite;
+}
+
+@keyframes lick{
+    0% {
+        transform: translateX(-50%) rotateX(0deg);
+    }
+    25% {
+        transform: translateX(-50%) rotateX(50deg);
+    }
+    50% {
+        transform: translateX(-50%) rotateX(-30deg);
+    }
+    75% {
+        transform: translateX(-50%) rotateX(60deg);
+    }
+    100% {
+        transform: translateX(-50%) rotateX(0deg);
+    }
 }
 
 main > section > div > div > section[aria-label="mask"] div::before{
@@ -419,7 +503,13 @@ main > section > div > div > section[aria-label="equalizer"]{
     display: flex;
     justify-content: center;
     gap: 10px;
-    background-color: white;
+    background-color: var(--led-display-off);
+}
+
+/*  Speaker mid section: equalizer container when power button is pressed */
+body:has([aria-label="power-button"] input:checked)
+main > section > div > div > section[aria-label="equalizer"]{
+    background-color: var(--led-display-on);
 }
 
 /*  Speaker mid section: equalizer bar */
@@ -441,7 +531,7 @@ main:has([aria-label="power-button"] input:checked):has([aria-label="play-contro
 /*  Speaker mid section: equalizer bar when boombox mode is on and power button is pressed and play button is pressed and prev button is pressed*/
 body:has(label[aria-label="boombox-mode"] input:checked)
 main:has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:first-of-type input:checked){
-    --play-rhythm: .4s;
+    --play-rhythm: .3s;
 }
 
 /*  Speaker mid section: equalizer bar when boombox mode is on and power button is pressed and play button is pressed and next button is pressed*/

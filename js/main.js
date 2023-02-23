@@ -15,7 +15,7 @@ function slide(s){
 	var sValue = s.value;
 	var sId = s.id;
 
-    document.body.style.setProperty(`--${sId}-level`,`${sValue}`);
+    document.body.style.setProperty(`--${sId}-level`, sValue);
 
 	// Add an extra data-attr to divide the slider into 10 steps when there are 20 steps or more
 	var sMax = s.max;

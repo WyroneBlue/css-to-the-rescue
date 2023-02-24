@@ -746,7 +746,7 @@ footer {
 }
 
 /* Mode selector container */
-footer nav{
+footer menu{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -758,7 +758,7 @@ footer nav{
 }
 
 /* Mode selector container active bg */
-footer nav::before{
+footer menu::before{
     content: "";
     position: absolute;
     inset-block: 0;
@@ -778,12 +778,12 @@ footer label{
 }
 
 /* Mode selector button active bg when boombox mode is active */
-footer nav:has(label:first-of-type input:checked)::before{
+footer menu:has(label:first-of-type input:checked)::before{
     transform: translateX(0);
 }
 
 /* Mode selector button active bg when mystery mode is active */
-footer nav:has(label:last-of-type input:checked)::before{
+footer menu:has(label:last-of-type input:checked)::before{
     transform: translateX(100%);
 }
 

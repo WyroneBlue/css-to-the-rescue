@@ -26,6 +26,8 @@
     --metalic-grey: #2b2b2b;
     --metalic-grey-light: #3b3b3b;
 
+    --perspective: 600px;
+
     --box-color: var(--metalic-grey);
     --led-display-off: rgb(25, 25, 25);
     --led-display-on: rgba(107, 115, 145, 0.797);
@@ -269,7 +271,7 @@ main > section > div > section{
     background-color: var(--metalic-grey-light);
 
     transform-style: preserve-3d;
-    perspective: 600px;
+    perspective: var(--perspective);
     z-index: 9;
 }
 
@@ -390,7 +392,7 @@ main:has([aria-label="play-controls"] label:nth-of-type(2) input:checked) > sect
     }
     10%, 90% {
         opacity: 1;
-        width: 100vw;
+        width: var(--perspective);
         transform: translate3d(-50%, -50%, 300px) rotateY(90deg);
     }
     100% {

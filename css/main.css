@@ -56,6 +56,12 @@
     inherits: false;
 }
 
+@property --led-display-on{
+    syntax: "<color>";
+    initial-value: rgba(0, 0, 0, 0.1);
+    inherits: false;
+}
+
 /* No background colors for reduce motion */
 @media (prefers-reduced-motion) {
     :root{
@@ -255,10 +261,19 @@ main > section > div{
 }
 
 /* Box in mystery mode when power button is pressed and play button is pressed */
-body:has([aria-label="mystery-mode"] input:checked):has([aria-label="power-button"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
+body:has([aria-label="mystery-mode"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
 main > section > div{
-    --led-color: var(--laser-color);
-    outline-color: var(--led-color);
+    animation: transition-equalizer 3s forwards;
+}
+
+@keyframes transition-equalizer{
+    from{
+        outline-color: var(--led-display-on);
+    }
+    to{
+        --led-display-on: var(--laser-color);
+        outline-color: var(--led-display-on);
+    }
 }
 
 /* Box: speakers */
@@ -510,7 +525,16 @@ main > section > div > div > section[aria-label="equalizer"]{
 
 /*  Speaker mid section: equalizer container when power button is pressed */
 body:has([aria-label="power-button"] input:checked)
+main > section > div > div > section[aria-label="equalizer"],
+body:has([aria-label="mystery-mode"] input:checked)
 main > section > div > div > section[aria-label="equalizer"]{
+    background-color: var(--led-display-on);
+}
+
+body:has([aria-label="mystery-mode"] input:checked)
+main:has([aria-label="play-controls"] label:nth-of-type(2) input:checked)
+> section > div > div > section[aria-label="equalizer"]{
+    --led-display-on: var(--laser-color);
     background-color: var(--led-display-on);
 }
 
@@ -621,7 +645,9 @@ main > section > div > div > section[aria-label="play-controls"] label::after{
 
 /*  Speaker mid section: play controls button when power button is pressed */
 main:has([aria-label="power-button"] input:checked)
-> section > div > div > section[aria-label="play-controls"] label{
+> section > div > div > section[aria-label="play-controls"] label,
+body:has([aria-label="mystery-mode"] input:checked)
+main > section > div > div > section[aria-label="play-controls"] label{
     background-image: linear-gradient(#000,#fff);
     box-shadow: 0px 1px 4px -2px #333;
     text-shadow: 0px -1px #333;
@@ -637,7 +663,9 @@ main:has([aria-label="power-button"] input:checked)
 
 /*  Speaker mid section: play controls button glass shine when power button is pressed and button self is pressed*/
 main:has([aria-label="power-button"] input:checked)
-> section > div > div > section[aria-label="play-controls"] label:has(input:checked){
+> section > div > div > section[aria-label="play-controls"] label:has(input:checked),
+body:has([aria-label="mystery-mode"] input:checked)
+main > section > div > div > section[aria-label="play-controls"] label:has(input:checked){
     color: white;
     background-image: linear-gradient(#073,#0fa);
 }

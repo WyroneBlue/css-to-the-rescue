@@ -174,7 +174,20 @@ Auto kijkt naar de taal die is geschreven in de html tag.
 
 ### Feedback
 - Menu gebruiken voor actions
-- laser steekt uit de achterkant, kijken of dat minder kan(opgelost door de width van de laser dezelfde width te geven van de perspective)
+- lasers steken uit de achterkant van de speaker(ogen) op een breder scherm, kijken of dit kan worden opgelost
 
+![Lasers ogen waarvan de lasers uit de achterkant steken](./images/laser-error-wide.png)
 
 ## Week 3
+
+Deze week heb ik vooral gewerkt aan de punten van de feedback sessions.
+
+Zoals de perspective van de 3d laserogen zo aangepast dat ze niet meer uit de achterkant van de boombox steken. Ik heb dit opgelost door de width van de laser dezelfde width te geven van de perspective van de parent.
+![Correcte lasers zonder dat de achterkant uitsteekt](./images/laser-error-wide-fix.png)
+
+Daarnaast heb ik ook de nav van de footer veranderd naar een menu, zodat deze een betere semantiek heeft, vanwege de verschillende modus buttons.
+
+Verder heb ik deze week niet echt meer dingen kunnen doen, omdat de rest eigenlijk wel goed verliep. Ik heb wel nog een aantal details toegevoegd aan de boombox. Zoals de speakers in mystery mode een andere kleur hebben. De speakers krijgen nu de kleur van ogen, zodat de boombox echt lijkt op een mask.
+
+Resultaat:
+![Human eyes](./images/human-eyes.png)

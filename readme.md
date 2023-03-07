@@ -109,7 +109,7 @@ Eerst wilde ik de lasers een vaste positie geven en dan de hele boombox laten be
 Dit waren de resultaten daarvan.
 Resultaten met rotate3d op de body:
 | Resultaat | Image |
-| --- | --- | --- |
+| --- | --- |
 | Laserogen 1| ![Laserogen experiment 1](./images/lasers-try-1.png) |
 | Laserogen 2 angle 1 | ![Laserogen experiment 2 angle 1](./images/lasers-try-2.png) |
 | Laserogen 2 angle 2 | ![Laserogen experiment 2 angle 2](./images/lasers-try-3.png) |

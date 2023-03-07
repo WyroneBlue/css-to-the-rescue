@@ -294,7 +294,31 @@ main > section > div > section{
     transform-style: preserve-3d;
     perspective: var(--perspective);
     z-index: 9;
+    transition: all .5s;
 }
+
+/* Box: speakers when mystery mode is on */
+body:has(label[aria-label="mystery-mode"] input:checked)
+main > section > div > section{
+    animation: human-eyes .5s forwards;
+}
+
+@keyframes human-eyes{
+    0%{
+        transform: scale(1);
+    }
+
+    50%{
+        /* background-color: rgba(255, 255, 255, 0.8); */
+        transform: scale(0);
+    }
+
+    100%{
+        background-color: rgba(255, 255, 255, 1);
+        transform: scale(1);
+    }
+}
+
 
 /* Box: speakers when mystery mode is on and play is pressed */
 body:has(label[aria-label="mystery-mode"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked) main > section > div > section{

@@ -118,7 +118,7 @@ Ik vond het zelf een beetje een gedoe en er was steeds een bepaald element die o
 
 Resultaten met rotate3d op de ogen:
 | Resultaat | Image |
-| --- | --- | --- |
+| --- | --- |
 | Angle 1| ![Laserogen resultaat angle 1](./images/lasers-results-1.png) |
 | Angle 2| ![Laserogen resultaat angle 2](./images/lasers-results-2.png) |
 

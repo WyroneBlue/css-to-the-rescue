@@ -322,7 +322,7 @@ main > section > div > section{
 
 /* Box: speakers when mystery mode is on and play is pressed */
 body:has(label[aria-label="mystery-mode"] input:checked):has([aria-label="play-controls"] label:nth-of-type(2) input:checked) main > section > div > section{
-    animation: move-eyes 3s infinite;
+    animation: move-eyes calc(var(--play-rhythm) * 5) infinite;
 }
 
 /* Moving eyes animation for mystery mode */
@@ -375,12 +375,20 @@ main > section > div > section::before{
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 15%;
-    height: 15%;
+    width: var(--speaker-middle-size);
+    height: var(--speaker-middle-size);
     border-radius: inherit;
     transform: translate(-50%, -50%);
     background: black;
     box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Box: speaker pupils when mystery mode is on */
+body:has(label[aria-label="mystery-mode"] input:checked)
+main > section > div > section::before{
+    width: var(--human-pupils-size);
+    height: var(--human-pupils-size);
+    background-color: var(--human-pupils);
 }
 
 /* Box: speaker pupils when boombox mode is on and power button is on and play is pressed */
@@ -402,11 +410,11 @@ main:has([aria-label="play-controls"] label:nth-of-type(2) input:checked) > sect
         transform: translate(-50%, -50%) scale(1);
     }
     20%{
-        transform: translate(-50%, -50%) scale(1.2);
+        transform: translate(-50%, -50%) scale(1);
     }
     100% {
         background-color: var(--laser-color);
-        transform: translate(-50%, -50%) scale(1);
+        transform: translate(-50%, -50%) scale(.5);
     }
 }
 
@@ -551,6 +559,7 @@ main > section > div > div > section[aria-label="equalizer"]{
     justify-content: center;
     gap: 10px;
     background-color: var(--led-display-off);
+    transition: background-color 0.3s ease-out;
 }
 
 /*  Speaker mid section: equalizer container when power button is pressed */

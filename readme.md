@@ -178,6 +178,10 @@ Auto kijkt naar de taal die is geschreven in de html tag.
 
 ![Lasers ogen waarvan de lasers uit de achterkant steken](./images/laser-error-wide.png)
 
+
+### Reflectie
+Deze week vond ik het wel redelijk goed gaan, ondanks dat de lasers niet helemaal zijn gelukt volgens mijn eerste improvisatie plan, want eigenlijk had ik de lasers helemaal niet. Deze zijn er pas bijgekomen na de comments van sanne. Maar ik ben wel tevreden met het resultaat. Door te werken met de lasers in mijn mystery modus, heb ik nu ook een beter begrip van 3D omgeving en transformaties.
+
 ## Week 3
 
 Deze week heb ik vooral gewerkt aan de punten van de feedback sessions.
@@ -191,3 +195,7 @@ Verder heb ik deze week niet echt meer dingen kunnen doen, omdat de rest eigenli
 
 Resultaat:
 ![Human eyes](./images/human-eyes.png)
+
+### Reflectie
+Als ik terugkijk op deze opdracht, had ik het begin wel een beetje moeite om een start te maken, maar toen ik eenmaal begonnen was en wist wat ik wilde maken, ging het eigenlijk wel goed. Eigenlijk alles wat ik wilde maken van mijn originele plan is in 1 keer gelukt. Mijn improvisatie ben ik ook zeker tevreden mee en is eigenlijk zelfs hetgeen waar ik het meest trots op ben.
+

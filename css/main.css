@@ -34,9 +34,15 @@
     --led-color: rgba(0, 0, 0, 0.1);
     --led-color-on: rgba(0, 255, 0, 0.8);
 
+    --human-pupils: #5C4033;
+    --human-pupils-size: 25%;
+
     --speaker-color: var(--metalic-grey-light);
+    --speaker-middle-size: 15%;
     --speaker-border: var(--handle-color);
     --laser-color: red;
+
+    --laser-pupils-size: var(--speaker-middle-size);
 
     --bg-color-1: black;
     --bg-color-2: blue;

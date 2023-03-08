@@ -163,6 +163,13 @@ main > section{
     gap: 50px;
     padding: 10px;
     filter: var(--box-container-shadow);
+    transform: scale(0.6);
+}
+
+@media (min-width: 600px){
+    main > section{
+        transform: scale(1);
+    }
 }
 
 /* Boombox container when the boombox mode is on and the power button is on and play is pressed */

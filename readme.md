@@ -42,6 +42,7 @@ De technieken die ik wil gaan gebruiken zijn:
 - range input
 - ::-webkit-slider-thumb
 - animation-play-state
+- has() selector
 
 ### Uitdagingen
 De uitdagingen die ik verwacht zijn:
@@ -180,7 +181,7 @@ Auto kijkt naar de taal die is geschreven in de html tag.
 
 
 ### Reflectie
-Deze week vond ik het wel redelijk goed gaan, ondanks dat de lasers niet helemaal zijn gelukt volgens mijn eerste improvisatie plan, want eigenlijk had ik de lasers helemaal niet. Deze zijn er pas bijgekomen na de comments van sanne. Maar ik ben wel tevreden met het resultaat. Door te werken met de lasers in mijn mystery modus, heb ik nu ook een beter begrip van 3D omgeving en transformaties.
+Deze week vond ik het wel redelijk goed gaan, ondanks dat de lasers niet helemaal zijn gelukt volgens mijn eerste improvisatie plan, want eigenlijk had ik de lasers helemaal niet. Deze zijn er pas bijgekomen na de comments van sanne. Maar ik ben wel tevreden met het resultaat. Door te werken met de lasers in mijn "mystery" modus van de boombox, heb ik nu ook een beter begrip van 3D omgeving en transformaties.
 
 ## Week 3
 
@@ -197,5 +198,16 @@ Resultaat:
 ![Human eyes](./images/human-eyes.png)
 
 ### Reflectie
-Als ik terugkijk op deze opdracht, had ik het begin wel een beetje moeite om een start te maken, maar toen ik eenmaal begonnen was en wist wat ik wilde maken, ging het eigenlijk wel goed. Eigenlijk alles wat ik wilde maken van mijn originele plan is in 1 keer gelukt. Mijn improvisatie ben ik ook zeker tevreden mee en is eigenlijk zelfs hetgeen waar ik het meest trots op ben.
+Als ik terugkijk op deze opdracht, had ik het begin wel een beetje moeite om een start te maken, maar toen ik eenmaal begonnen was en wist wat ik wilde maken, ging het eigenlijk wel goed. Eigenlijk alles wat ik wilde maken van mijn originele plan is in 1 keer gelukt. En met ijn improvisatie, de laserogen, ben ik ook zeker tevreden en is eigenlijk zelfs hetgeen waar ik het meest trots op ben.
 
+Deze opdracht heeft mij ook vooral echt laten zien dat je heel veel dingen kan checken met css. En eigenlijk javascript moet gebruiken als je echt iets heel speciaals wilt doen wat je met html en css niet voor elkaar kunt krijgen, zoals de slider van de volume.
+
+De technique die ik vooral ga meenemen en die echt handig is, is de :has selector. de :has selector is voor mij echt een gamechanger. Deze zorgt ervoor dat je de parent kan selecteren aan de hand van een bepaalde status van een child, dus als bijvoorbeld een een child checked is dat je iets met de section kan doen. Hiervoor deed ik dat of met javascript of ik plaatste de class zo hoog mogelijk in de html met javascript. Maar nu kan ik dit gewoon met css doen. Dit is echt een super handige selector.
+
+Andere technieken die ik ga meenemen, maar die ik niet in dit vak heb gebruikt, komen van de lecture van Kilian valkhof.
+Deze technieken zijn:
+- Dialog, deze is handig om een popup te maken en heb ik nu zelfs als gebruikt bij het vak Web App From Scratch.
+- summary en details, deze zijn handig om een dropdown te maken. En de icons hiervan zijn ook te stylen met de ::marker selector
+- scroll-margin-top. Dit is iets wat ik altijd aan het oplossen was met css, terwijl dit gewoon een css property is. Dit is handig om e header mee te nemen in de scroll, zodat je niet de header over de content heen ziet scrollen.
+
+Dus ik kan zeggen dat ik bij het vak CSS to the rescue veel heb geleerd en dat ik het een erg leuk vak vond.
